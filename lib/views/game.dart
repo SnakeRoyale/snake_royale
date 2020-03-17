@@ -20,14 +20,15 @@ class Game extends BaseGame {
   void update(double t){
 
   }
-  void render(Canvas canvas) async {
+  void render(Canvas canvas) {
     Rect background = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
     Paint backgroundPaint = Paint()..color = Color(0xFF555555);
 
     canvas.drawRect(background, backgroundPaint);
 
 
-    Image image = await Flame.images.load('sprites/snakes/default/circle.png');
+    Image image =  Flame.images.loadedFiles['sprites/snakes/default/circle.png'];
+
 
     Paint paint = Paint()..color = Color(0xFFFFFFFF);
     Rect rect = Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble());
