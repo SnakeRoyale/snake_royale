@@ -9,6 +9,17 @@ import 'views/game.dart';
 void main() async {
   Flame.initializeWidget();
 
+  Flame.images.loadAll(<String>[
+    'sprites/terrain/food.png',
+    'sprites/terrain/hex.png',
+    'sprites/terrain/tile.png',
+    'sprites/snakes/default/circle.png',
+    'sprites/snakes/default/eye-black.png',
+    'sprites/snakes/default/eye-white.png',
+    'sprites/snakes/default/white-shadow.png',
+
+  ]);
+
   Util flameUtil = Util();
 
   await flameUtil.fullScreen();

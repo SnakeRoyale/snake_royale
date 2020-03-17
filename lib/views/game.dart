@@ -1,3 +1,4 @@
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,10 @@ class Game extends BaseGame {
 
     canvas.drawRect(background, backgroundPaint);
 
-    Sprite sprite = new Sprite('sprites/snakes/default/circle.png');
+    Sprite sprite = Sprite('sprites/snakes/default/circle.png');
+
     sprite.render(canvas);
+
   }
 
   void resize(Size size) {
