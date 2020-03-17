@@ -4,10 +4,12 @@ import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/painting.dart';
+import 'package:snake_royale/components/snake.dart';
 
 class Game extends BaseGame {
   Size screenSize;
   double tileSize;
+  Snake snake = new Snake(15);
 
   Game() {
     initialize();
@@ -18,7 +20,7 @@ class Game extends BaseGame {
   }
 
   void update(double t){
-
+    this.snake.update(t);
   }
   void render(Canvas canvas) {
     Rect background = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
@@ -27,14 +29,9 @@ class Game extends BaseGame {
     canvas.drawRect(background, backgroundPaint);
 
 
-    Image image =  Flame.images.loadedFiles['sprites/snakes/default/circle.png'];
 
-
-    Paint paint = Paint()..color = Color(0xFFFFFFFF);
-    Rect rect = Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble());
-
-
-    canvas.drawImageRect(image, rect, rect, paint);
+    this.snake.render(canvas);
+    this.snake.move(new Offset(1,0));
 
   }
 
