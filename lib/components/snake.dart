@@ -42,7 +42,7 @@ class Snake implements Movable{
       }
   }
 
-  void move(Offset offset){
+  Future<void> move(Offset offset) async{
     for(var component in this.sprites){
       component.x += offset.dx;
       component.y += offset.dy;
