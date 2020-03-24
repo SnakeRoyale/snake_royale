@@ -25,8 +25,7 @@ class SnakeBody implements Movable {
   }
 
   void move(Offset offset) {
-    this.sprite.x += offset.dx;
-    this.sprite.y += offset.dy;
+    this.sprite.toRect().translate(offset.dx, offset.dy);
   }
 
   void _draw(Offset position, bool isHead) {
