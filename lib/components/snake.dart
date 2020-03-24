@@ -23,7 +23,7 @@ class Snake implements Movable{
   }
 
   void _createHead(Offset offset){
-    var circle = Flame.images.loadedFiles['sprites/snakes/default/circle.png'];
+    var circle = Flame.images.loadedFiles['sprites/snakes/default/head.png'];
     Sprite sprite = Sprite.fromImage(circle);
     double size = circle.height.toDouble();
     var headSprite = SpriteComponent.fromSprite(size, size, sprite); // width, height, sprite
@@ -31,25 +31,8 @@ class Snake implements Movable{
     headSprite.y = offset.dy; // 0 by default
     headSprite.angle = 0; // 0 by default
     this.sprites.add(headSprite);
-    _createEye();
   }
 
-  void _createEye(){
-
-    //left eye
-    var eye = Flame.images.loadedFiles['sprites/snakes/default/eye-black.png'];
-    Sprite sprite = Sprite.fromImage(eye);
-    var eyeSprite = SpriteComponent.fromSprite(10, 10, sprite);
-    eyeSprite.x = 15;
-    eyeSprite.y = 10;
-
-    //right eye, we will reuse the component already defined and redraw it.
-    var rightEyeSprite = SpriteComponent.fromSprite(10, 10, sprite);
-    rightEyeSprite.x = 20;
-    rightEyeSprite.y = 0;
-    this.sprites.add(eyeSprite);
-    this.sprites.add(rightEyeSprite);
-  }
   void _drawBody(Canvas canvas, Offset offset){
 
   }
