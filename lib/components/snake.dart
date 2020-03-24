@@ -3,10 +3,10 @@ import 'dart:ui';
 
 import 'package:flame/components/component.dart';
 import 'package:flame/flame.dart';
-import 'package:flame/game.dart';
 import 'package:flame/sprite.dart';
+import 'package:snake_royale/interfaces/movable.dart';
 
-class Snake extends Game{
+class Snake implements Movable{
   String name;
   String color;
   Uint32 mass;
@@ -62,8 +62,7 @@ class Snake extends Game{
   void move(Offset offset){
     for(var component in this.sprites){
       component.x += offset.dx;
-      component.x += offset.dy;
-
+      component.y += offset.dy;
     }
   }
 
@@ -78,7 +77,6 @@ class Snake extends Game{
       bodySprite.y = 30; // 0 by default
 
       if(i == 0){
-        // reset x
         bodySprite.x = -35;
         bodySprite.y = 20; // 0 by default
 
