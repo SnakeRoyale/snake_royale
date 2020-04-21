@@ -3,8 +3,6 @@ import 'package:flame/util.dart';
 import 'package:flutter/material.dart';
 
 import 'views/game.dart';
-import 'views/game.dart';
-import 'views/game.dart';
 
 void main() async {
   Flame.initializeWidget();
@@ -27,6 +25,30 @@ void main() async {
   await flameUtil.fullScreen();
   await flameUtil.setPortraitUpOnly();
 
+  runApp(App());
+}
+
+class App extends StatelessWidget {
+
   Game game = new Game();
-  runApp(game.widget);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Container(
+        decoration: BoxDecoration(
+          color: Colors.white
+        ),
+        child:
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onPanStart: game.onPanStart,
+            onPanUpdate: game.onPanUpdate,
+            onPanEnd: game.onPanEnd,
+            child: game.widget,
+          ),
+      ),
+    );
+  }
 }

@@ -104,7 +104,7 @@ class Controller {
   void onPanStart(DragStartDetails details) {
     if (knobRect.contains(details.globalPosition)) {
       dragging = true;
-      game.snake.isMoving = true;
+      // game.snake.isMoving = true;
     }
   }
 
@@ -119,7 +119,6 @@ class Controller {
     // Reset drag position to the center of joystick background
     dragPosition = backgroundRect.center;
     // Stop move player ship
-    game.snake.isMoving = false;
+    // game.snake.isMoving = false;
   }
-
 }

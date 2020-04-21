@@ -9,7 +9,6 @@ class Snake implements Movable {
   String color;
   Uint32 mass;
   double lastMoveRadAngle;
-  bool isMoving = false;
 
   // List<SpriteComponent> sprites = new List();
   List<SnakeBody> bodyParts = new List();
