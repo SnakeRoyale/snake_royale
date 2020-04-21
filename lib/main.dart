@@ -18,6 +18,10 @@ void main() async {
     'sprites/snakes/default/eye-white.png',
     'sprites/snakes/default/white-shadow.png',
     'sprites/snakes/default/head.png',
+    'joystick/joystick_background.png',
+    'joystick/joystick_knob.png',
+
+
 
   ]);
 
