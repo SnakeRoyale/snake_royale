@@ -31,6 +31,7 @@ class Game extends BaseGame {
 
     this.snake.render(canvas);
     this.snake.move(new Offset(1, 0));
+    controller.render(canvas);
   }
 
   void resize(Size size) {
