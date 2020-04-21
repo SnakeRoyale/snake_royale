@@ -31,12 +31,10 @@ class Controller {
     // image of the joystick
     var radius = (game.tileSize * backgroundAspectRatio) / 2;
 
-    print(radius);
     Offset osBackground = Offset(radius + (radius / 2),
         game.screenSize.height - (radius + (radius / 2)));
     backgroundRect = Rect.fromCircle(center: osBackground, radius: radius);
 
-    print(backgroundRect);
 
     // The circle radius calculation that will contain the knob
     // image of the joystick
@@ -47,7 +45,6 @@ class Controller {
     assert(knobRect != null, "Tried calling knobRect on null");
     if(knobRect != null){
       dragPosition = knobRect.center;
-
     }
   }
 

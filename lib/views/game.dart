@@ -1,7 +1,7 @@
-
 import 'dart:ui';
 
 import 'package:flame/game.dart';
+import 'package:flame/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
 import 'package:snake_royale/components/controller.dart';
@@ -17,23 +17,20 @@ class Game extends BaseGame {
     initialize();
   }
 
-  void initialize() {
-    this.tileSize = 1;
+  void initialize() async {
+    resize(await Util().initialDimensions());
     controller = Controller(this);
     snake = new Snake(2);
   }
-  
+
   void render(Canvas canvas) {
     Rect background = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
     Paint backgroundPaint = Paint()..color = Color(0xFF555555);
 
     canvas.drawRect(background, backgroundPaint);
 
-
-
     this.snake.render(canvas);
-    this.snake.move(new Offset(1,0));
-
+    this.snake.move(new Offset(1, 0));
   }
 
   void resize(Size size) {
@@ -42,7 +39,7 @@ class Game extends BaseGame {
     screenSize = size;
 
     // TODO: Define subgrid size
-    tileSize = screenSize.width  / 10;
+    tileSize = screenSize.width / 10;
   }
 
   @override
