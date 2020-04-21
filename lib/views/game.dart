@@ -18,6 +18,7 @@ class Game extends BaseGame {
   }
 
   void initialize() {
+    this.tileSize = 1;
     controller = Controller(this);
     snake = new Snake(2);
   }

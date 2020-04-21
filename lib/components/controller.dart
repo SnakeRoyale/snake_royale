@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:snake_royale/views/game.dart';
 
 class Controller {
-
   final Game game;
 
   double backgroundAspectRatio = 2.5;
@@ -32,27 +31,20 @@ class Controller {
     // image of the joystick
     var radius = (game.tileSize * backgroundAspectRatio) / 2;
 
-    Offset osBackground = Offset(
-        radius + (radius / 2),
-        game.screenSize.height - (radius + (radius / 2))
-    );
-    backgroundRect = Rect.fromCircle(
-        center: osBackground,
-        radius: radius
-    );
+    print(radius);
+    Offset osBackground = Offset(radius + (radius / 2),
+        game.screenSize.height - (radius + (radius / 2)));
+    backgroundRect = Rect.fromCircle(center: osBackground, radius: radius);
+
+    print(backgroundRect);
 
     // The circle radius calculation that will contain the knob
     // image of the joystick
     radius = (game.tileSize * knobAspectRatio) / 2;
 
-    Offset osKnob = Offset(
-        backgroundRect.center.dx,
-        backgroundRect.center.dy
-    );
-    knobRect = Rect.fromCircle(
-        center: osKnob,
-        radius: radius
-    );
+    Offset osKnob = Offset(backgroundRect.center.dx, backgroundRect.center.dy);
+    knobRect = Rect.fromCircle(center: osKnob, radius: radius);
+    assert(knobRect != null);
     dragPosition = knobRect.center;
   }
 
@@ -63,8 +55,7 @@ class Controller {
 
   void update(double t) {
     if (dragging) {
-      double _radAngle = atan2(
-          dragPosition.dy - backgroundRect.center.dy,
+      double _radAngle = atan2(dragPosition.dy - backgroundRect.center.dy,
           dragPosition.dx - backgroundRect.center.dx);
 
       // Update playerShip's player rad angle
@@ -86,11 +77,10 @@ class Controller {
       double nextY = dist * sin(_radAngle);
       Offset nextPoint = Offset(nextX, nextY);
 
-      Offset diff = Offset(
-          backgroundRect.center.dx + nextPoint.dx,
-          backgroundRect.center.dy + nextPoint.dy) - knobRect.center;
+      Offset diff = Offset(backgroundRect.center.dx + nextPoint.dx,
+              backgroundRect.center.dy + nextPoint.dy) -
+          knobRect.center;
       knobRect = knobRect.shift(diff);
-
     } else {
       // The drag position is, at this moment, that of the center of the
       // background of the joystick. It calculates the difference between this
