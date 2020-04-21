@@ -44,8 +44,11 @@ class Controller {
 
     Offset osKnob = Offset(backgroundRect.center.dx, backgroundRect.center.dy);
     knobRect = Rect.fromCircle(center: osKnob, radius: radius);
-    assert(knobRect != null);
-    dragPosition = knobRect.center;
+    assert(knobRect != null, "Tried calling knobRect on null");
+    if(knobRect != null){
+      dragPosition = knobRect.center;
+
+    }
   }
 
   void render(Canvas canvas) {
@@ -77,6 +80,7 @@ class Controller {
       double nextY = dist * sin(_radAngle);
       Offset nextPoint = Offset(nextX, nextY);
 
+
       Offset diff = Offset(backgroundRect.center.dx + nextPoint.dx,
               backgroundRect.center.dy + nextPoint.dy) -
           knobRect.center;
@@ -86,6 +90,11 @@ class Controller {
       // background of the joystick. It calculates the difference between this
       // position and the current position of the knob to place the center of
       // the background.
+
+
+      if(knobRect == null){
+        return;
+      }
       Offset diff = dragPosition - knobRect.center;
       knobRect = knobRect.shift(diff);
     }
