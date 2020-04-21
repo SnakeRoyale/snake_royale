@@ -1,27 +1,27 @@
 
 import 'dart:ui';
-import 'package:flame/flame.dart';
+
 import 'package:flame/game.dart';
-import 'package:flame/sprite.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
+import 'package:snake_royale/components/controller.dart';
 import 'package:snake_royale/components/snake.dart';
 
 class Game extends BaseGame {
   Size screenSize;
   double tileSize;
-  Snake snake = new Snake(2);
+  Snake snake;
+  Controller controller;
 
   Game() {
     initialize();
   }
 
   void initialize() {
-
+    controller = Controller(this);
+    snake = new Snake(2);
   }
-
-  void update(double t){
-    this.snake.update(t);
-  }
+  
   void render(Canvas canvas) {
     Rect background = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
     Paint backgroundPaint = Paint()..color = Color(0xFF555555);
@@ -42,5 +42,23 @@ class Game extends BaseGame {
 
     // TODO: Define subgrid size
     tileSize = screenSize.width  / 10;
+  }
+
+  @override
+  void update(double t) {
+    controller.update(t);
+    snake.update(t);
+  }
+
+  void onPanStart(DragStartDetails details) {
+    controller.onPanStart(details);
+  }
+
+  void onPanUpdate(DragUpdateDetails details) {
+    controller.onPanUpdate(details);
+  }
+
+  void onPanEnd(DragEndDetails details) {
+    controller.onPanEnd(details);
   }
 }
