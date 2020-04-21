@@ -20,8 +20,8 @@ class Controller {
   Offset dragPosition;
 
   Controller(this.game) {
-    backgroundSprite = Sprite('joystick_background.png');
-    knobSprite = Sprite('joystick_knob.png');
+    backgroundSprite = Sprite('sprites/controller/joystick_background.png');
+    knobSprite = Sprite('sprites/controller/joystick_knob.png');
 
     initialize();
   }
