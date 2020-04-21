@@ -33,11 +33,9 @@ class Snake implements Movable {
   }
 
   Future<void> move(Offset offset) async {
-    // for (var bodyPart in this.bodyParts) {
-    //   bodyPart.move(offset);
-    // }
-
-    this.bodyParts[0].move(offset);
+    for (var bodyPart in this.bodyParts) {
+       bodyPart.move(offset);
+     }
   }
 
   void _createBody(int length) {
