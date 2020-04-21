@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flame/components/component.dart';
 import 'package:flame/flame.dart';
+import 'package:flame/position.dart';
 import 'package:flame/sprite.dart';
 import 'package:snake_royale/interfaces/movable.dart';
 
@@ -25,7 +26,7 @@ class SnakeBody implements Movable {
   }
 
   void move(Offset offset) {
-    this.sprite.toRect().translate(offset.dx, offset.dy);
+    this.sprite.setByRect(this.sprite.toRect().shift(Offset(1,1)));
   }
 
   void _draw(Offset position, bool isHead) {

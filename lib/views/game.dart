@@ -9,7 +9,7 @@ import 'package:snake_royale/components/snake.dart';
 class Game extends BaseGame {
   Size screenSize;
   double tileSize;
-  Snake snake = new Snake(15);
+  Snake snake = new Snake(2);
 
   Game() {
     initialize();
