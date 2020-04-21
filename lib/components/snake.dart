@@ -40,7 +40,7 @@ class Snake implements Movable {
 
   void _createBody(int length) {
     for (int i = 0; i < length; i++) {
-      var bodyPart = new SnakeBody(new Offset(0, 30));
+      var bodyPart = new SnakeBody(new Offset(150, (250 + (i + 1) * 30).toDouble()));
       this.bodyParts.add(bodyPart);
     }
   }

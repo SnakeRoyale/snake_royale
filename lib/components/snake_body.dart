@@ -23,15 +23,14 @@ class SnakeBody implements Movable {
   void _drawBody(Canvas canvas, Offset offset) {}
 
   void render(Canvas canvas) {
-
     canvas.save();
     this.sprite.render(canvas);
     canvas.restore();
   }
 
   void move(Offset offset) {
-    this.sprite.x = this.sprite.x + offset.dx;
-    this.sprite.y = this.sprite.y + offset.dy;
+    this.sprite.x += offset.dx;
+    this.sprite.y += offset.dy;
   }
 
   void _draw(Offset position, bool isHead) {
@@ -42,8 +41,10 @@ class SnakeBody implements Movable {
     double size = circle.height.toDouble();
     this.sprite =
         SpriteComponent.fromSprite(size, size, sprite); // width, height, sprite
-    this.sprite.x = this.sprite.x + position.dx;
-    this.sprite.y = this.sprite.y + position.dy;
+
+    // this.sprite.y += 30;
+    // this.sprite.x += position.dx;
+    this.sprite.y += position.dy;
 
 
     this.sprite.angle = 0; // 0 by default
