@@ -20,9 +20,6 @@ void main() async {
     'sprites/snakes/default/head.png',
     'joystick/joystick_background.png',
     'joystick/joystick_knob.png',
-
-
-
   ]);
 
   Util flameUtil = Util();
