@@ -20,7 +20,7 @@ class Game extends BaseGame {
   void initialize() async {
     resize(await Util().initialDimensions());
     controller = Controller(this);
-    snake = new Snake(2);
+    snake = new Snake(5, 50, 50);
   }
 
   void render(Canvas canvas) {

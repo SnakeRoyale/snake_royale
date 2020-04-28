@@ -13,14 +13,14 @@ class Snake implements Movable {
   // List<SpriteComponent> sprites = new List();
   List<SnakeBody> bodyParts = new List();
 
-  Snake(int length) {
+  Snake(int length, int x, int y) {
     _createHead(new Offset(150, 250));
     _createBody(length);
   }
 
   void update(double t) {
     for(var part in this.bodyParts){
-      part.sprite.angle = this.lastMoveRadAngle;
+      part.sprite.angle = this.lastMoveRadAngle -90;
     }
   }
 
