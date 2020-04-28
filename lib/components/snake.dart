@@ -18,7 +18,11 @@ class Snake implements Movable {
     _createBody(length);
   }
 
-  void update(double t) {}
+  void update(double t) {
+    for(var part in this.bodyParts){
+      part.sprite.angle = this.lastMoveRadAngle;
+    }
+  }
 
   void _createHead(Offset offset) {
     var head = new SnakeBody(offset, isHead: true);

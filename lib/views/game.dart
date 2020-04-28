@@ -30,7 +30,7 @@ class Game extends BaseGame {
     canvas.drawRect(background, backgroundPaint);
 
     this.snake.render(canvas);
-    this.snake.move(new Offset(1, 0));
+    // this.snake.move(new Offset(1, 0));
     controller.render(canvas);
   }
 
