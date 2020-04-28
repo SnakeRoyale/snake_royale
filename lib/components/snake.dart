@@ -8,7 +8,7 @@ class Snake implements Movable {
   String name;
   String color;
   Uint32 mass;
-  double lastMoveRadAngle;
+  double lastMoveRadAngle = 0;
 
   // List<SpriteComponent> sprites = new List();
   List<SnakeBody> bodyParts = new List();
@@ -35,13 +35,14 @@ class Snake implements Movable {
 
   Future<void> move(Offset offset) async {
     for (var bodyPart in this.bodyParts) {
-       bodyPart.move(offset);
-     }
+      bodyPart.move(offset);
+    }
   }
 
   void _createBody(int length) {
     for (int i = 0; i < length; i++) {
-      var bodyPart = new SnakeBody(new Offset(150, (250 + (i + 1) * 30).toDouble()));
+      var bodyPart =
+          new SnakeBody(new Offset(150, (250 + (i + 1) * 30).toDouble()));
       this.bodyParts.add(bodyPart);
     }
   }

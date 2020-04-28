@@ -31,8 +31,8 @@ class Controller {
     // image of the joystick
     var radius = (game.tileSize * backgroundAspectRatio) / 2;
 
-    Offset osBackground = Offset(game.screenSize.width / 2,
-        game.screenSize.height - (radius + (radius / 2)));
+    Offset osBackground =
+        Offset(game.screenSize.width / 2, game.screenSize.height - 2.5 * radius);
     backgroundRect = Rect.fromCircle(center: osBackground, radius: radius);
 
     // The circle radius calculation that will contain the knob
