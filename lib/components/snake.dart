@@ -14,7 +14,7 @@ class Snake implements Movable {
   List<SnakeBody> bodyParts = new List();
 
   Snake(int length, int x, int y) {
-    _createHead(new Offset(150, 250));
+    _createHead(new Offset(150, 650));
     _createBody(length);
   }
 
