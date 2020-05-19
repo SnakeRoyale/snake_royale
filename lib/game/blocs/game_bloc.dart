@@ -81,7 +81,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   GameState _updateGame() {
     final oldSnake = state.snake;
     var newSnake = oldSnake?.move(state.velocity) ?? _newSnake();
-    var score = 0;
+    var score = state.score;
     var food = state.food;
     var status = state.status;
 

@@ -22,25 +22,12 @@ class GameScreen extends StatelessWidget {
 
   final FocusNode _focusNode = FocusNode();
 
-  Rect _getScreenSize(BuildContext context, double appBarHeight) {
-    final mediaQuery = MediaQuery.of(context);
-    final width = mediaQuery.size.width;
-    final height = mediaQuery.size.height;
-    final topPadding = mediaQuery.padding.top;
-
-    return Rect.fromLTWH(
-      mediaQuery.padding.left,
-      appBarHeight + topPadding,
-      width - mediaQuery.padding.right,
-      height - appBarHeight - topPadding,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<GameBloc>(context);
 
-    final screen = _getScreenSize(context, 0);
+    final mq = MediaQuery.of(context);
+    final screen = Rect.fromLTWH(0, 0, mq.size.width, mq.size.height);
 
     final tileSize = screen.width / 30;
 
@@ -103,7 +90,7 @@ class GameScreen extends StatelessWidget {
                     ]);
                     break;
                   case Status.gameOver:
-                    return GameOverScreen(won: false);
+                    return GameOverScreen(won: false, score: state.score);
                     break;
                   default:
                     return _gameRenderer.widget;

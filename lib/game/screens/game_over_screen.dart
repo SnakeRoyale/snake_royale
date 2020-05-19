@@ -23,7 +23,7 @@ class _GameOverScreenState extends State<GameOverScreen> {
   Widget build(BuildContext context) {
     HightscoreService().addScore(ScoreModel(score, DateTime.now()));
     return Center(
-      child: Text('yikes'),
+      child: Text('you died with $score points. yikes'),
     );
   }
 }
