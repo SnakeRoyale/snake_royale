@@ -12,13 +12,13 @@ class HightscoreService {
     return directory.path;
   }
 
-  HightscoreService(){
+  HightscoreService() {
     print('instanciated');
   }
   Future<File> get _localFile async {
     final path = await _localPath;
-    var file =  File('$path/data.txt');
-    if(await file.exists()){
+    var file = File('$path/data.txt');
+    if (await file.exists()) {
       print('File exists');
 
       return file;
@@ -38,9 +38,15 @@ class HightscoreService {
     }
     print('not empty');
 
-    var jsonList =  await jsonDecode(file.readAsStringSync());
-    jsonList = jsonList as List<ScoreModel>;
-    return jsonList;
+    var jsonList = await jsonDecode(file.readAsStringSync());
+    var scores = <ScoreModel>[];
+    for (var jsonEntry in jsonList) {
+      scores.add(ScoreModel(
+        jsonEntry['points'],
+        DateTime.parse(jsonEntry['date']),
+      ));
+    }
+    return scores;
   }
 
   Future<void> addScore(ScoreModel model) async {
