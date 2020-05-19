@@ -39,7 +39,8 @@ class HightscoreService {
     print('not empty');
 
     var jsonList =  await jsonDecode(file.readAsStringSync());
-    jsonList = jsonList as List<ScoreModel>;
+    jsonList = jsonList as List<dynamic>;
+
     return jsonList;
   }
 
