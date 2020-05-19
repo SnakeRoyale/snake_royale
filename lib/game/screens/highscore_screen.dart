@@ -60,11 +60,38 @@ class _HighscoreScreenState extends State<HighscoreScreen>
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 100),
                 child: CenterHorizontal(
-                 Text(
+                  Text(
                     'Highscore',
                     textAlign: TextAlign.center,
-                   style: TextStyle(color: Colors.white, fontSize: 35),
+                    style: TextStyle(color: Colors.white, fontSize: 35),
                   ),
+                ),
+              ),
+              Positioned(
+                top: 0.0,
+                left: 0.0,
+                right: 0.0,
+                child: AppBar(
+                  title: Text(''),
+                  // You can add title here
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  backgroundColor: Colors.blue.withOpacity(0.3),
+                  //You can make this transparent
+                  elevation: 0.0, //No shadow
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 230),
+                child: ListView(
+                  children: <Widget>[
+                    Text('First', style: TextStyle(fontSize: 50),),
+                    Text('Second'),
+                    Text('Third'),
+
+                  ],
                 ),
               )
             ],
