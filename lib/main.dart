@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:snaake/game/screens/game_over_screen.dart';
+import 'package:snaake/game/screens/highscore_screen.dart';
+import 'package:snaake/game/screens/start_screen.dart';
 
 import './game/blocs/game_bloc.dart';
 import './game/flame/flame_manager.dart';
@@ -15,19 +18,26 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Snaake!',
+      title: 'Snake Royale',
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: GameColors.primary,
         primaryColorDark: GameColors.primaryDark,
       ),
-      home: BlocProvider(
-        create: (context) => GameBloc(
-          flameManager: FlameManager(),
-          random: Random(),
-        ),
-        child: GameScreen(),
-      ),
+      initialRoute: '/start',
+      routes: {
+        '/start': (context) => StartScreen(),
+        '/highscore': (context) => HighscoreScreen(),
+        '/gameover': (context) => GameOverScreen(won: false),
+        '/win': (context) => GameOverScreen(won: true),
+        '/game': (context) => BlocProvider(
+              create: (context) => GameBloc(
+                flameManager: FlameManager(),
+                random: Random(),
+              ),
+              child: GameScreen(),
+            )
+      },
     );
   }
 }
