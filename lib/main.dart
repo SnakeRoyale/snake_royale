@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: 'Snake Royale',
       theme: ThemeData(
-        brightness: Brightness.light,
+        brightness: Brightness.dark,
         primaryColor: GameColors.primary,
         primaryColorDark: GameColors.primary,
       ),
