@@ -38,7 +38,9 @@ class HightscoreService {
     }
     print('not empty');
 
-    return jsonDecode(file.readAsStringSync());
+    var jsonList =  await jsonDecode(file.readAsStringSync());
+    jsonList = jsonList as List<ScoreModel>;
+    return jsonList;
   }
 
   Future<void> addScore(ScoreModel model) async {
