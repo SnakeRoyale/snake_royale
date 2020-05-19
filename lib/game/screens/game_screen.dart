@@ -60,43 +60,45 @@ class GameScreen extends StatelessWidget {
             bloc.add(OnKeyPressedEvent(LogicalKeyboardKey.arrowUp));
           }
         },
-        child: RawKeyboardListener(
-          focusNode: _focusNode,
-          onKey: (event) {
-            bloc.add(OnKeyPressedEvent(event.logicalKey));
-          },
-          child: BlocListener<GameBloc, GameState>(
-            listener: (context, state) {
-              _gameRenderer.updateFood(state.food);
-              _gameRenderer.updateSnake(state.snake);
+        child: SafeArea(
+          child: RawKeyboardListener(
+            focusNode: _focusNode,
+            onKey: (event) {
+              bloc.add(OnKeyPressedEvent(event.logicalKey));
             },
-            child: BlocBuilder<GameBloc, GameState>(
-              condition: (before, current) => before.status != current.status,
-              builder: (context, state) {
-                final bloc = BlocProvider.of<GameBloc>(context);
-
-                switch (state.status) {
-                  case Status.loading:
-                    return LoadingWidget();
-                    break;
-                  case Status.pause:
-                    return Stack(children: <Widget>[
-                      _gameRenderer.widget,
-                      if (state.status == Status.pause)
-                        PauseWidget(
-                          text: 'Tap to resume',
-                          onTap: () => bloc.add(ResumeGameEvent()),
-                        ),
-                    ]);
-                    break;
-                  case Status.gameOver:
-                    return GameOverScreen(won: false, score: state.score);
-                    break;
-                  default:
-                    return _gameRenderer.widget;
-                    break;
-                }
+            child: BlocListener<GameBloc, GameState>(
+              listener: (context, state) {
+                _gameRenderer.updateFood(state.food);
+                _gameRenderer.updateSnake(state.snake);
               },
+              child: BlocBuilder<GameBloc, GameState>(
+                condition: (before, current) => before.status != current.status,
+                builder: (context, state) {
+                  final bloc = BlocProvider.of<GameBloc>(context);
+
+                  switch (state.status) {
+                    case Status.loading:
+                      return LoadingWidget();
+                      break;
+                    case Status.pause:
+                      return Stack(children: <Widget>[
+                        _gameRenderer.widget,
+                        if (state.status == Status.pause)
+                          PauseWidget(
+                            text: 'Tap to resume',
+                            onTap: () => bloc.add(ResumeGameEvent()),
+                          ),
+                      ]);
+                      break;
+                    case Status.gameOver:
+                      return GameOverScreen(won: false, score: state.score);
+                      break;
+                    default:
+                      return _gameRenderer.widget;
+                      break;
+                  }
+                },
+              ),
             ),
           ),
         ),
