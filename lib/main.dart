@@ -20,14 +20,14 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: 'Snake Royale',
       theme: ThemeData(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         primaryColor: GameColors.primary,
-        primaryColorDark: GameColors.primaryDark,
+        primaryColorDark: GameColors.primary,
       ),
       initialRoute: '/start',
       routes: {
         '/start': (context) => StartScreen(),
-        '/highscore': (context) => HighscoreScreen(),
+        '/highscore': (context) => HighscoreScreen(MediaQuery.of(context).size.height),
         '/gameover': (context) => GameOverScreen(won: false),
         '/win': (context) => GameOverScreen(won: true),
         '/game': (context) => BlocProvider(

@@ -5,7 +5,7 @@ class GameColors {
   GameColors._();
 
   /// Primary color.
-  static const primary = Color(0xFF253238);
+  static const primary = Color(0xFF000000);
 
   /// Primary dark color.
   static const primaryDark = Color(0xFF1A2629);

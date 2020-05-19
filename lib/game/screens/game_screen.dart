@@ -84,7 +84,7 @@ class GameScreen extends StatelessWidget {
       appBar.preferredSize.height,
     );
 
-    final tileSize = screen.width / 30;
+    final tileSize = screen.width / 1000;
 
     final board = Board(
       screen.width ~/ tileSize,
