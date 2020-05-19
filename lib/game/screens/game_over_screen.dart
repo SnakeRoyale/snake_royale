@@ -16,8 +16,8 @@ class _GameOverScreenState extends State<GameOverScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Container(),
+    return Center(
+      child: Text('yikes'),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:snaake/game/screens/game_over_screen.dart';
 import 'package:snaake/game/screens/highscore_screen.dart';
@@ -17,6 +18,7 @@ void main() => runApp(MainApp());
 class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([]); // Hide Android status bar
     return MaterialApp(
       title: 'Snake Royale',
       theme: ThemeData(

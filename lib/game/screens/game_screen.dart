@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:snaake/game/screens/game_over_screen.dart';
 
 import '../blocs/game_bloc.dart';
 import '../blocs/game_events.dart';
@@ -39,52 +40,9 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<GameBloc>(context);
 
-    final appBar = AppBar(
-      title: const Text("Snaake"),
-      actions: <Widget>[
-        BlocBuilder<GameBloc, GameState>(
-          condition: (before, after) => before.status != after.status,
-          builder: (context, state) {
-            switch (state.status) {
-              case Status.pause:
-                return IconButton(
-                  icon: Icon(Icons.play_arrow),
-                  tooltip: 'Continue',
-                  focusNode: null,
-                  onPressed: () {
-                    BlocProvider.of<GameBloc>(context).add(ResumeGameEvent());
-                  },
-                );
-              case Status.running:
-                return IconButton(
-                  icon: Icon(Icons.pause),
-                  tooltip: 'Pause',
-                  focusNode: null,
-                  onPressed: () {
-                    BlocProvider.of<GameBloc>(context).add(PauseGameEvent());
-                  },
-                );
-              default:
-                return IconButton(
-                  icon: Icon(Icons.refresh),
-                  tooltip: 'Restart',
-                  focusNode: null,
-                  onPressed: () {
-                    BlocProvider.of<GameBloc>(context).add(NewGameEvent());
-                  },
-                );
-            }
-          },
-        )
-      ],
-    );
+    final screen = _getScreenSize(context, 0);
 
-    final screen = _getScreenSize(
-      context,
-      appBar.preferredSize.height,
-    );
-
-    final tileSize = screen.width / 1000;
+    final tileSize = screen.width / 30;
 
     final board = Board(
       screen.width ~/ tileSize,
@@ -100,9 +58,6 @@ class GameScreen extends StatelessWidget {
     bloc.add(OnBoardCreatedEvent(board));
 
     return Scaffold(
-      appBar: appBar,
-      extendBodyBehindAppBar: true,
-      extendBody: true,
       body: GestureDetector(
         onHorizontalDragUpdate: (details) {
           if (details.delta.dx > 0.0) {
@@ -132,23 +87,28 @@ class GameScreen extends StatelessWidget {
               condition: (before, current) => before.status != current.status,
               builder: (context, state) {
                 final bloc = BlocProvider.of<GameBloc>(context);
-                return state.status == Status.loading
-                    ? LoadingWidget()
-                    : Stack(
-                        children: <Widget>[
-                          _gameRenderer.widget,
-                          if (state.status == Status.pause)
-                            PauseWidget(
-                              text: 'Tap to resume',
-                              onTap: () => bloc.add(ResumeGameEvent()),
-                            ),
-                          if (state.status == Status.gameOver)
-                            PauseWidget(
-                              text: 'Tap to start a new game',
-                              onTap: () => bloc.add(NewGameEvent()),
-                            )
-                        ],
-                      );
+
+                switch (state.status) {
+                  case Status.loading:
+                    return LoadingWidget();
+                    break;
+                  case Status.pause:
+                    return Stack(children: <Widget>[
+                      _gameRenderer.widget,
+                      if (state.status == Status.pause)
+                        PauseWidget(
+                          text: 'Tap to resume',
+                          onTap: () => bloc.add(ResumeGameEvent()),
+                        ),
+                    ]);
+                    break;
+                  case Status.gameOver:
+                    return GameOverScreen(won: false);
+                    break;
+                  default:
+                    return _gameRenderer.widget;
+                    break;
+                }
               },
             ),
           ),
