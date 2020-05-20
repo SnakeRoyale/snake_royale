@@ -19,5 +19,5 @@ class GameColors {
   static const background = Colors.blueAccent;
 
   /// The color used to draw the chess background.
-  static const backgroundChess = Color(0xFF42A5F5);
+  static const backgroundChess = Colors.blueAccent;
 }
