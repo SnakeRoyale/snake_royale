@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:snaake/game/service/highscore_service.dart';
+import 'package:snaake/game/service/score_model.dart';
 import 'package:snaake/game/widgets/bezier_clipper.dart';
 import 'package:snaake/game/widgets/center_horizontal.dart';
+import 'dart:developer' as developer;
 
 class HighscoreScreen extends StatefulWidget {
   final double height;
+  final highscoreService = HightscoreService();
 
   // ignore: public_member_api_docs
   HighscoreScreen(this.height);
@@ -20,11 +24,18 @@ class _HighscoreScreenState extends State<HighscoreScreen>
   Animation<double> animation;
   final double startingHeight = 20.0;
 
+  List<ScoreModel> scores = [];
+
   @override
   void initState() {
     // TODO: implemnt initState
     super.initState();
 
+    this.widget.highscoreService.getHighscores().then((value) {
+      setState(() {
+        scores = value;
+      });
+    });
     _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
     animation = Tween<double>(
@@ -41,6 +52,25 @@ class _HighscoreScreenState extends State<HighscoreScreen>
       ),
     );
     _controller.forward(from: 0.0);
+  }
+
+  List<Widget> getHighscoreItems() {
+    print('called');
+    List<Widget> widgets = [];
+    int i = 1;
+    for (var score in scores) {
+      widgets.add(Row(
+        children: [
+          Text('$i. Punkte', style: TextStyle(fontSize: 20)),
+          Padding(padding: EdgeInsets.symmetric(horizontal: 5),),
+          Text(score.points.toString(), style: TextStyle(fontSize: 20)),
+          Padding(padding: EdgeInsets.symmetric(horizontal: 5),),
+          Text('Am ${score.date.day}.${score.date.month}.${score.date.year}', style: TextStyle(fontSize: 20))
+        ],
+      ));
+    }
+    print(widgets);
+    return widgets;
   }
 
   @override
@@ -84,14 +114,9 @@ class _HighscoreScreenState extends State<HighscoreScreen>
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 230),
+                padding: EdgeInsets.symmetric(vertical: 230, horizontal: 30),
                 child: ListView(
-                  children: <Widget>[
-                    Text('First', style: TextStyle(fontSize: 50),),
-                    Text('Second'),
-                    Text('Third'),
-
-                  ],
+                  children: getHighscoreItems(),
                 ),
               )
             ],
