@@ -26,14 +26,10 @@ class HightscoreService {
   }
 
   Future<List<ScoreModel>> getHighscores() async {
-    print('getting file');
     final file = await _localFile;
-    print('got file');
     if (await file.readAsString() == '') {
-      print('empty');
       return <ScoreModel>[];
     }
-    print('not empty');
 
     var jsonList = await jsonDecode(file.readAsStringSync());
     var scores = <ScoreModel>[];
@@ -45,19 +41,12 @@ class HightscoreService {
 
   Future<void> addScore(ScoreModel model) async {
     final file = await _localFile;
-    print('adding highscore');
-    print(model.points);
 
     final scores = await getHighscores();
-    print('below scores');
-    print(scores);
-    print('above scores');
 
     scores.add(model);
 
     await file.writeAsString(jsonEncode(scores));
-    print('WROTE CONTENT');
-    print(file.readAsStringSync());
 
     return;
   }

@@ -22,6 +22,11 @@ class _GameOverScreenState extends State<GameOverScreen>
   Animation<double> animation;
   final double startingHeight = 20.0;
 
+  bool won;
+  int score;
+
+  _GameOverScreenState({this.won, this.score});
+
   @override
   void initState() {
     super.initState();
@@ -46,10 +51,21 @@ class _GameOverScreenState extends State<GameOverScreen>
     _controller.forward(from: 0.0);
   }
 
-  bool won;
-  int score;
-
-  _GameOverScreenState({this.won, this.score});
+  Widget startButton(String text, Function action) {
+    return ButtonTheme(
+      height: 50,
+      minWidth: 200,
+      child: RaisedButton(
+        onPressed: action,
+        color: Colors.blueAccent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        child: Text(
+          text,
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +86,7 @@ class _GameOverScreenState extends State<GameOverScreen>
                 padding: EdgeInsets.symmetric(vertical: 100),
                 child: CenterHorizontal(
                   Text(
-                    'Highscores',
+                    won ? 'Ayy!' : 'Yikes!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -80,26 +96,53 @@ class _GameOverScreenState extends State<GameOverScreen>
                   ),
                 ),
               ),
-              Positioned(
-                top: 0.0,
-                left: 0.0,
-                right: 0.0,
-                child: AppBar(
-                  title: Text(''),
-                  // You can add title here
-                  leading: IconButton(
-                    icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                  backgroundColor: Colors.blue.withOpacity(0.3),
-                  //You can make this transparent
-                  elevation: 0.0, //No shadow
-                ),
-              ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 230, horizontal: 30),
-                child: ListView(
-                  children: [],
+                padding: EdgeInsets.symmetric(vertical: 300, horizontal: 30),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      CenterHorizontal(
+                        Text(
+                          'Du hast ${won ? 'gewonnen' : 'verloren'}, und dabei',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      CenterHorizontal(
+                        Text(
+                          '$score Punkt${score == 1 ? '' : 'e'}',
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      CenterHorizontal(
+                        Text(
+                          'mit deiner Schlange gesammelt.',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 100),
+                      CenterHorizontal(
+                        startButton(
+                          'Nochmal spielen',
+                          () => Navigator.pushReplacementNamed(context, '/game'),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      CenterHorizontal(
+                        startButton(
+                          'Zurück zum Start',
+                          () => Navigator.pushReplacementNamed(context, '/start'),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                    ],
+                  ),
                 ),
               )
             ],
@@ -108,8 +151,5 @@ class _GameOverScreenState extends State<GameOverScreen>
         animation: _controller,
       ),
     );
-    // return Center(
-    //   child: Text('you died with $score points. yikes'),
-    // );
   }
 }

@@ -11,7 +11,6 @@ import '../models/board.dart';
 import '../models/status.dart';
 import '../renderer/game_renderer.dart';
 import '../widgets/loading_widget.dart';
-import '../widgets/pause_widget.dart';
 
 /// Main game screen.
 class GameScreen extends StatelessWidget {
@@ -47,6 +46,7 @@ class GameScreen extends StatelessWidget {
     bloc.add(OnBoardCreatedEvent(board));
 
     return Scaffold(
+      backgroundColor: Colors.blueAccent,
       body: GestureDetector(
         onHorizontalDragUpdate: (details) {
           if (details.delta.dx > 0.0) {
@@ -81,16 +81,6 @@ class GameScreen extends StatelessWidget {
                   switch (state.status) {
                     case Status.loading:
                       return LoadingWidget();
-                      break;
-                    case Status.pause:
-                      return Stack(children: <Widget>[
-                        _gameRenderer.widget,
-                        if (state.status == Status.pause)
-                          PauseWidget(
-                            text: 'Tap to resume',
-                            onTap: () => bloc.add(ResumeGameEvent()),
-                          ),
-                      ]);
                       break;
                     case Status.gameOver:
                       return GameOverScreen(

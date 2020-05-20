@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 /// Util class with the game colors.
 class GameColors {
   GameColors._();
@@ -14,10 +16,8 @@ class GameColors {
   static const voidBackground = Color(0xFF1A2629);
 
   /// The background of the playable area.
-  static const background = Color(0xFFB0B0B0);
+  static const background = Colors.blueAccent;
 
   /// The color used to draw the chess background.
-  static const backgroundChess = Color(0xFFB3B3B3);
-
-  static const pauseBackground = Color(0x66000000);
+  static const backgroundChess = Color(0xFF42A5F5);
 }
