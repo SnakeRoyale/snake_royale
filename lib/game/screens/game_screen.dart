@@ -36,6 +36,8 @@ class GameScreen extends StatelessWidget {
       screen.height ~/ tileSize,
     );
 
+    final maxSnakeLength = board.height * board.width;
+
     final _gameRenderer = GameRenderer(
       tileSize: tileSize,
       screen: screen,
@@ -91,7 +93,10 @@ class GameScreen extends StatelessWidget {
                       ]);
                       break;
                     case Status.gameOver:
-                      return GameOverScreen(won: false, score: state.score);
+                      return GameOverScreen(
+                        won: state.score >= maxSnakeLength,
+                        score: state.score,
+                      );
                       break;
                     default:
                       return _gameRenderer.widget;
