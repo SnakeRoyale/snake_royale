@@ -5,7 +5,6 @@ import 'package:snaake/game/service/highscore_service.dart';
 import 'package:snaake/game/service/score_model.dart';
 import 'package:snaake/game/widgets/bezier_clipper.dart';
 import 'package:snaake/game/widgets/center_horizontal.dart';
-import 'dart:developer' as developer;
 
 class HighscoreScreen extends StatefulWidget {
   final double height;
@@ -28,10 +27,9 @@ class _HighscoreScreenState extends State<HighscoreScreen>
 
   @override
   void initState() {
-    // TODO: implemnt initState
     super.initState();
 
-    this.widget.highscoreService.getHighscores().then((value) {
+    widget.highscoreService.getHighscores().then((value) {
       setState(() {
         scores = value;
       });
@@ -54,22 +52,47 @@ class _HighscoreScreenState extends State<HighscoreScreen>
     _controller.forward(from: 0.0);
   }
 
-  List<Widget> getHighscoreItems() {
-    print('called');
-    List<Widget> widgets = [];
-    int i = 1;
-    for (var score in scores) {
-      widgets.add(Row(
-        children: [
-          Text('$i. Punkte', style: TextStyle(fontSize: 20)),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 5),),
-          Text(score.points.toString(), style: TextStyle(fontSize: 20)),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 5),),
-          Text('Am ${score.date.day}.${score.date.month}.${score.date.year}', style: TextStyle(fontSize: 20))
-        ],
-      ));
-    }
-    print(widgets);
+  List<Widget> getHighscoreItems(BuildContext context) {
+    var widgets = <Widget>[];
+    scores
+      ..sort((a, b) => b.points.compareTo(a.points))
+      ..asMap().forEach((i, score) {
+        widgets.add(
+          Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('${i + 1}.', style: TextStyle(fontSize: 20)),
+                    Text(
+                      '${score.points}  Punkt${score.points == 1 ? '' : 'e'}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      [
+                        score.date.day,
+                        score.date.month,
+                        score.date.year,
+                      ].join('.'),
+                      style: TextStyle(fontSize: 20),
+                    )
+                  ],
+                ),
+              ),
+              if (i != scores.length - 1)
+                Container(
+                  height: 1,
+                  color: Colors.black12,
+                )
+            ],
+          ),
+        );
+      });
     return widgets;
   }
 
@@ -91,9 +114,13 @@ class _HighscoreScreenState extends State<HighscoreScreen>
                 padding: EdgeInsets.symmetric(vertical: 100),
                 child: CenterHorizontal(
                   Text(
-                    'Highscore',
+                    'Highscores',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 35),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -116,7 +143,7 @@ class _HighscoreScreenState extends State<HighscoreScreen>
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 230, horizontal: 30),
                 child: ListView(
-                  children: getHighscoreItems(),
+                  children: getHighscoreItems(context),
                 ),
               )
             ],

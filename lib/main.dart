@@ -18,11 +18,10 @@ void main() => runApp(MainApp());
 class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]); // Hide Android status bar
     return MaterialApp(
       title: 'Snake Royale',
       theme: ThemeData(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         primaryColor: GameColors.primary,
         primaryColorDark: GameColors.primary,
       ),
