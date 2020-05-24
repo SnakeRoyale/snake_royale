@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:snaake/game/screens/game_over_screen.dart';
 
 import '../blocs/game_bloc.dart';
 import '../blocs/game_events.dart';
@@ -11,6 +10,7 @@ import '../models/board.dart';
 import '../models/status.dart';
 import '../renderer/game_renderer.dart';
 import '../widgets/loading_widget.dart';
+import 'game_over_screen.dart';
 
 /// Main game screen.
 class GameScreen extends StatelessWidget {
@@ -35,7 +35,7 @@ class GameScreen extends StatelessWidget {
       screen.height ~/ tileSize,
     );
 
-    final maxSnakeLength = board.height * board.width;
+    final maxSnakeLength = board.height * board.width - bloc.snakeInitialLength;
 
     final _gameRenderer = GameRenderer(
       tileSize: tileSize,
@@ -76,8 +76,6 @@ class GameScreen extends StatelessWidget {
               child: BlocBuilder<GameBloc, GameState>(
                 condition: (before, current) => before.status != current.status,
                 builder: (context, state) {
-                  final bloc = BlocProvider.of<GameBloc>(context);
-
                   switch (state.status) {
                     case Status.loading:
                       return LoadingWidget();

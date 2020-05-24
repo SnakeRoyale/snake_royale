@@ -105,42 +105,57 @@ class _GameOverScreenState extends State<GameOverScreen>
                   child: Column(
                     children: <Widget>[
                       CenterHorizontal(
-                        Text(
-                          'Du hast ${won ? 'gewonnen' : 'verloren'}, und dabei',
-                          style: TextStyle(
-                            fontSize: 20,
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: Text(
+                            'Du hast ${won ? 'gewonnen':'verloren'}, und dabei',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       ),
                       CenterHorizontal(
-                        Text(
-                          '$score Punkt${score == 1 ? '' : 'e'}',
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      CenterHorizontal(
-                        Text(
-                          'mit deiner Schlange gesammelt.',
-                          style: TextStyle(
-                            fontSize: 20,
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: Text(
+                            '$score Punkt${score == 1 ? '' : 'e'}',
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
                       CenterHorizontal(
-                        startButton(
-                          'Nochmal spielen',
-                          () => Navigator.pushReplacementNamed(context, '/game'),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 80),
+                          child: Text(
+                            'mit deiner Schlange gesammelt.',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 20),
                       CenterHorizontal(
-                        startButton(
-                          'Zurück zum Start',
-                          () => Navigator.pushReplacementNamed(context, '/start'),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 15),
+                          child: startButton(
+                            'Nochmal spielen',
+                            () => Navigator.pushReplacementNamed(
+                                context, '/game'),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      CenterHorizontal(
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: startButton(
+                            'Zurück zum Start',
+                            () => Navigator.pushReplacementNamed(
+                                context, '/start'),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
