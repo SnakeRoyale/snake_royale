@@ -73,32 +73,35 @@ class _GameOverScreenState extends State<GameOverScreen>
     return Scaffold(
       body: AnimatedBuilder(
         builder: (context, anim) {
-          return Stack(
+          return Column(
             children: <Widget>[
-              ClipPath(
-                clipper: BezierClipper(animationValue: animation.value),
-                child: Container(
-                  height: animation.value,
-                  color: Colors.blueAccent,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 100),
-                child: CenterHorizontal(
-                  Text(
-                    won ? 'Ayy!' : 'Yikes!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
+              Stack(
+                children: [
+                  ClipPath(
+                    clipper: BezierClipper(animationValue: animation.value),
+                    child: Container(
+                      height: animation.value,
+                      color: Colors.blueAccent,
                     ),
                   ),
-                ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 80),
+                    child: CenterHorizontal(
+                      Text(
+                        won ? 'Ayy!' : 'Yikes!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 300, horizontal: 30),
-                child: SingleChildScrollView(
+              Container(
+                child: Container(
                   child: Column(
                     children: <Widget>[
                       CenterHorizontal(
@@ -109,7 +112,6 @@ class _GameOverScreenState extends State<GameOverScreen>
                           ),
                         ),
                       ),
-                      SizedBox(height: 30),
                       CenterHorizontal(
                         Text(
                           '$score Punkt${score == 1 ? '' : 'e'}',
@@ -117,7 +119,6 @@ class _GameOverScreenState extends State<GameOverScreen>
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(height: 30),
                       CenterHorizontal(
                         Text(
                           'mit deiner Schlange gesammelt.',
@@ -126,7 +127,6 @@ class _GameOverScreenState extends State<GameOverScreen>
                           ),
                         ),
                       ),
-                      SizedBox(height: 100),
                       CenterHorizontal(
                         startButton(
                           'Nochmal spielen',
