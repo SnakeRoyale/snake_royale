@@ -1,4 +1,4 @@
-package dev.lucasnlm.snake.snaake
+package ch.gibb.snakeroyale
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
